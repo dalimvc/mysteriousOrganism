@@ -4,56 +4,74 @@ CodeCademy challenge code
 
 Code requraments from CodeCademy:
 
-
 1.
-In order to complete this project, you should have completed the first few sections of Introduction to JavaScript (through Learn JavaScript: Loops).
+In order to complete this project, you should have completed the first few sections of Introduction to JavaScript (through Learn JavaScript: Objects).
 
 
 2.
-Look over the starter code. There are 15 arrays that each contain the digits of separate credit card numbers. They all have prefixes to reflect their status, i.e. variables that start with valid contain a valid number, whereas invalid do not, and mystery variables can be either. There is also a batch array that stores all of the provided credit cards in a single array.
+Look over the starter code. There are two helper functions: returnRandBase() and mockUpStrand().
 
-You’ll use these arrays later to check if your functions are working properly.
+DNA is comprised of four bases (Adenine, Thymine, Cytosine, and Guanine). When returnRandBase() is called, it will randomly select a base and return the base ('A','T','C', or 'G').
+
+mockUpStrand() is used to generate an array containing 15 bases to represent a single DNA strand with 15 bases.
+
+You’ll use these helper functions later to create your objects that represent P. aequor.
 
 3.
-Create a function, validateCred() that has a parameter of an array. The purpose of validateCred() is to return true when an array contains digits of a valid credit card number and false when it is invalid. This function should NOT mutate the values of the original array.
+Since you need to create multiple objects, create a factory function pAequorFactory() that has two parameters:
 
-To find out if a credit card number is valid or not, use the Luhn algorithm. Generally speaking, an algorithm is a series of steps that solve a problem — the Luhn algorithm is a series of mathematical calculations used to validate certain identification numbers, e.g. credit card numbers. The calculations in the Luhn algorithm can be broken down as the following steps:
+The first parameter is a number (no two organisms should have the same number).
+The second parameter is an array of 15 DNA bases.
+pAequorFactory() should return an object that contains the properties specimenNum and dna that correspond to the parameters provided.
 
-Starting from the farthest digit to the right, AKA the check digit, iterate to the left.
-As you iterate to the left, every other digit is doubled (the check digit is not doubled). If the number is greater than 9 after doubling, subtract 9 from its value.
-Sum up all the digits in the credit card number.
-If the sum modulo 10 is 0 (if the sum divided by 10 has a remainder of 0) then the number is valid, otherwise, it’s invalid.
-Here’s a visual that outlines the steps. Check your function using both the provided valid and invalid numbers.
+You’ll also add more methods to this returned object in the later steps.
 
 
 
 4.
-Create another function, findInvalidCards() that has one parameter for a nested array of credit card numbers. The role of findInvalidCards() is to check through the nested array for which numbers are invalid, and return another nested array of invalid cards.
+Your team wants you to simulate P. aequor‘s high rate of mutation (change in its DNA).
+
+To simulate a mutation, in pAequorFactory()‘s returned object, add the method .mutate().
+
+.mutate() is responsible for randomly selecting a base in the object’s dna property and changing the current base to a different base. Then .mutate() will return the object’s dna.
+
+For example, if the randomly selected base is the 1st base and it is 'A', the base must be changed to 'T', 'C', or 'G'. But it cannot be 'A' again.
+
 
 
 5.
-After finding all the invalid credit card numbers, it’s also necessary to identify the credit card companies that have possibly issued these faulty numbers. Create a function, idInvalidCardCompanies() that has one parameter for a nested array of invalid numbers and returns an array of companies.
+Your research team wants to be able to compare the DNA sequences of different P. aequor. You’ll have to add a new method (.compareDNA()) to the returned object of the factory function.
 
-Currently, there 4 accepted companies which each have unique first digits. The following table shows which digit is unique to which company:
+.compareDNA() has one parameter, another pAequor object.
 
-First Digit	Company
-3	Amex (American Express)
-4	Visa
-5	Mastercard
-6	Discover
-If the number doesn’t start with any of the numbers listed, print out a message like: “Company not found”.
+The behavior of .compareDNA() is to compare the current pAequor‘s .dna with the passed in pAequor‘s .dna and compute how many bases are identical and in the same locations. .compareDNA() does not return anything, but prints a message that states the percentage of DNA the two objects have in common — use the .specimenNum to identify which pAequor objects are being compared.
 
-idInvalidCardCompanies() should return an array of companies that have mailed out cards with invalid numbers. This array should NOT contain duplicates, i.e. even if there are two invalid Visa cards, "Visa" should only appear once in the array.
+For example:
 
+ex1 = ['A', 'C', 'T', 'G']
+ex2 = ['C', 'A', 'T', 'T']
+ex1 and ex2 only have the 3rd element in common ('T') and therefore, have 25% (1/4) of their DNA in common. The resulting message would read something along the lines of: specimen #1 and specimen #2 have 25% DNA in common.
 
 
 
 6.
-Great work! Visit our forums to compare your project to our sample solution code. You can also learn how to host your own solution on GitHub so you can share it with other learners! Your solution might look different from ours, and that’s okay! There are multiple ways to solve these projects, and you’ll learn more by seeing others’ code.
+P. aequor have a likelier chance of survival if their DNA is made up of at least 60% 'C' or 'G' bases.
+
+In the returned object of pAequorFactory(), add another method .willLikelySurvive().
+
+.willLikelySurvive() returns true if the object’s .dna array contains at least 60% 'C' or 'G' bases. Otherwise, .willLikelySurvive() returns false.
 
 7.
+With the factory function set up, your team requests that you create 30 instances of pAequor that can survive in their natural environment. Store these instances in an array for your team to study later.
+
+
+
+Project Extensions & Solution
+8.
+Great work! Visit our forums to compare your project to our sample solution code. You can also learn how to host your own solution on GitHub so you can share it with other learners! Your solution might look different from ours, and that’s okay! There are multiple ways to solve these projects, and you’ll learn more by seeing others’ code.
+
+9.
 If you’d like to challenge yourself further, you could consider the following:
 
-Use different credit card numbers from a credit card number generator and validator site and test if your functions work for all types of credit cards.
-To make it easier to test credit card numbers, create a function that accepts a string and converts it into an array of numbers like the initially provided arrays. (Check the hint for a helpful function)
-Create a function that will convert invalid numbers into valid numbers.
+Create a .complementStrand() method to the factory function’s object that returns the complementary DNA strand. The rules are that 'A's match with 'T's and vice versa. Also, 'C's match with 'G's and vice versa. (Check the hint for more details)
+Use the .compareDNA() to find the two most related instances of pAequor.
